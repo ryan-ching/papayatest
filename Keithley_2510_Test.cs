@@ -21,7 +21,7 @@ namespace PapayaDemo
             double tempOut = 0.0;
             for (int i = 0; i < 5; i++)
             {
-                keithley.temp = 1.0;
+                keithley.temp = Convert.ToDouble(i);
                 tempOut = keithley.temp;
                 Debug.WriteLine("Keithley Test, Temp is " + Convert.ToString(tempOut));
             }

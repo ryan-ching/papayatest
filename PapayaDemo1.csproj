@@ -72,6 +72,8 @@
     <Compile Include="Agilent_33401.cs" />
     <Compile Include="Agilent_E3631.cs" />
     <Compile Include="Agilent_33401_Test.cs" />
+    <Compile Include="Agilent_86142.cs" />
+    <Compile Include="TecTest.cs" />
     <Compile Include="Keithley_2510_Test.cs" />
     <Compile Include="Keysight_E3649_Test.cs" />
     <Compile Include="Main_Test.cs" />

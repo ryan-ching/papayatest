@@ -43,7 +43,6 @@ C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDe
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\bin\Debug\NationalInstruments.Visa.dll
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\bin\Debug\Ivi.Visa.xml
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\bin\Debug\NationalInstruments.Visa.xml
-C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.csproj.AssemblyReference.cache
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo.Form1.resources
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo.Properties.Resources.resources
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.csproj.GenerateResource.cache
@@ -51,3 +50,4 @@ C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDe
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.csproj.CopyComplete
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.exe
 C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.pdb
+C:\Users\ching\Desktop\papaya examples\papaya-examples\Csharp\visa_19p0\PapayaDemo1\PapayaDemo1\obj\Debug\PapayaDemo1.csproj.AssemblyReference.cache

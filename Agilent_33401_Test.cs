@@ -9,10 +9,11 @@ namespace PapayaDemo
 {
     class Agilent_33401_Test
     {
-        public static void Main()
+        public static void Main4()
         {
             Agilent_33401 agilent = new Agilent_33401("gpib0,27", "192.168.2.181");
             double acVoltage; double acCurrent; double dcVoltage; double dcCurrent;
+            double twoWireRead; double fourWireRead; double measureDiode; double db;
             for (int i = 0; i < 10; i++)
             {
                 acVoltage = agilent.acVoltage();
@@ -26,8 +27,21 @@ namespace PapayaDemo
 
                 dcCurrent = agilent.acVoltage();
                 Debug.WriteLine("DC Curr is " + dcCurrent.ToString());
+
+                twoWireRead = agilent.twoWireRes();
+                Debug.WriteLine("2 wire resistance is " + twoWireRead.ToString());
+
+                fourWireRead = agilent.fourWireRes();
+                Debug.WriteLine("4 wire resistance is " + fourWireRead.ToString());
+
+                measureDiode = agilent.measureDiode();
+                Debug.WriteLine("Diode reading is " + measureDiode.ToString());
+
+                db = agilent.dbValue();
+                Debug.WriteLine("dB reading is " + db.ToString());
+                
             }
-            
+            // Functions to Test: setTwoWires, setFourWires, measureDiode
         }
     }
 }

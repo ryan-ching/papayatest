@@ -96,5 +96,52 @@ namespace PapayaDemo
             } 
         }
 
+        public double twoWireRes()
+        {
+            try
+            {
+                return Convert.ToDouble(vxi11Device.query(":meas:res?"));
+            }
+            catch (System.Exception)
+            {
+                throw new System.Exception("Agilent 33401 query 2-Wire measurement failed");
+            }
+        }
+
+        public double fourWireRes()
+        {
+            try
+            {
+                return Convert.ToDouble(vxi11Device.query(":meas:fres?"));
+            }
+            catch (System.Exception)
+            {
+                throw new System.Exception("Agilent 33401 query 4-Wire measurement failed");
+            }
+        }
+
+        public double measureDiode()
+        {
+            try
+            {
+                return Convert.ToDouble(vxi11Device.query(":meas:diod?"));
+            }
+            catch (System.Exception)
+            {
+                throw new System.Exception("Agilent 33401 diode measurement failed");
+            }
+        }
+
+        public double dbValue()
+        {
+            try
+            {
+                return Convert.ToDouble(vxi11Device.query(":calc:db:ref?"));
+            }
+            catch (System.Exception)
+            {
+                throw new System.Exception("Agilent 33401 dB measurement failed");
+            }
+        }
     }
 }

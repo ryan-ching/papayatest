@@ -20,7 +20,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Net;
 
 /*
  * Papaya C# driver using National instrument VisaNs to communicate to the
