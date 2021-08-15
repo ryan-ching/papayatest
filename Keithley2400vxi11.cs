@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 /* 
@@ -129,7 +130,7 @@ namespace PapayaDemo
             set
             {
 
-                vxi11Device.write(":SENS:CURR:PROT " + value);
+                vxi11Device.write(":SENS:CURR:PROT " + value + "E-3");
             }
         }
 
@@ -146,7 +147,7 @@ namespace PapayaDemo
             set
             {
 
-                vxi11Device.write(":SENS:VOLT:PROT " + value);
+                vxi11Device.write(":SENS:VOLT:PROT " + value + "E-3");
             }
         }
 
@@ -203,18 +204,38 @@ namespace PapayaDemo
                 {
                     if (value == SenseModeType.Voltage)
                     {
-                        mode = "'VOLT'";
+                        mode = "\"VOLT\"";
                     }
                     if (value == SenseModeType.Current)
                     {
-                        mode = "'CURR'";
+                        mode = "\"CURR\"";
                     }
                     if (value == SenseModeType.Resistance)
                     {
-                        mode = "'RES'";
+                        mode = "\"RES\"";
                     }
                     vxi11Device.write(":SENS:FUNC:ON " + mode);
                 }
+            }
+            get
+            {
+                
+                String sense = vxi11Device.query(":SENS:FUNC?");
+                switch (sense)
+                {
+                    case "\"\"\n":
+                        return SenseModeType.AllOff;
+                    case "\"VOLT:DC\"\n":
+                        return SenseModeType.Voltage;
+                    case "\"CURR:DC\"\n":
+                        return SenseModeType.Current;
+                    case "\"RES\"\n":
+                        return SenseModeType.Resistance;
+                    case "\"VOLT:DC\",\"CURR:DC\",\"RES\"\n":
+                        return SenseModeType.AllOn;
+                    default:
+                        throw new Exception("Unknown Sense Mode State");
+                } 
             }
         }
 
@@ -235,7 +256,7 @@ namespace PapayaDemo
                         terminal = SelectTerminals.Rear;
                         break;
                     default:
-                        throw new Exception("Unknown State");
+                        throw new Exception("Unknown Terminal State");
                 }
                 return terminal;
             }

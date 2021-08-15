@@ -50,7 +50,7 @@ namespace PapayaDemo
             {
                 try
                 {
-                    vxi11Device.write(":sens:wav:star " + Convert.ToString(value));
+                    vxi11Device.write(":sens:wav:star " + Convert.ToString(value) + "nm");
                 }
                 catch (System.Exception)
                 {
@@ -75,7 +75,7 @@ namespace PapayaDemo
             {
                 try
                 {
-                    vxi11Device.write(":sens:wav:stop " + Convert.ToString(value));
+                    vxi11Device.write(":sens:wav:stop " + Convert.ToString(value) + " nm");
                 }
                 catch (System.Exception)
                 {
@@ -125,7 +125,7 @@ namespace PapayaDemo
         {
             try
             {
-                vxi11Device.write("from ascii");
+                //vxi11Device.write("from ascii"); // Line gives undefined header error
                 vxi11Device.write("trac? tra");
                 String response = vxi11Device.read();
                 int count = 0;
