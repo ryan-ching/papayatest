@@ -51,6 +51,12 @@ namespace PapayaDemo
                 return this.ipAddress;
             }
         }
+
+        public string checkForError()
+        {
+            return vxi11Device.query("syst:err?");
+        }
+
         public double temp // Temperature must be between 0 and 40 degrees
         {
             set

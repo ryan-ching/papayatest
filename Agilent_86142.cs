@@ -43,7 +43,10 @@ namespace PapayaDemo
                 return this.ipAddress;
             }
         }
-
+        public string checkForError()
+        {
+            return vxi11Device.query("syst:err?");
+        }
         public double startWaveLength
         {
             set
@@ -121,6 +124,32 @@ namespace PapayaDemo
             }
         }
 
+        // get/set for init sweep (init:imm)
+        public int initSweep
+        {
+            set
+            {
+                try
+                {
+                    vxi11Device.write(":init:cont " + Convert.ToString(value));
+                }
+                catch (System.Exception)
+                {
+                    throw new System.Exception("Agilent 86142 set init sweep failed");
+                }
+            }
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(vxi11Device.query(":init:cont?"));
+                }
+                catch (System.Exception)
+                {
+                    throw new System.Exception("Agilent 86142 get init sweep failed");
+                }
+            }
+        }
         public String getTrace()
         {
             try

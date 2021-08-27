@@ -73,7 +73,10 @@ namespace PapayaDemo
             }
         }
 
-
+        public string checkForError()
+        {
+            return vxi11Device.query("syst:err?");
+        }
         public double VoltageSetpoint
         {
             get

@@ -47,14 +47,21 @@ namespace PapayaDemo
             Keithley2400vxi11.SelectTerminals selectFront = Keithley2400vxi11.SelectTerminals.Front;
             Keithley2400vxi11.SelectTerminals selectRear = Keithley2400vxi11.SelectTerminals.Rear;
 
-            for (int i = 0; i < 10; i++)
+            // Checking for error variables
+            String k2400errMsg; String a86142errMsg; String a33401errMsg; String k2510errMsg; String aE3631errMsg;
+            
+            a86142.traceLength = 2001;
+            a86142.initSweep = 1;
+            System.Threading.Thread.Sleep(3000);
+            a86142.initSweep = 0;
+            for (int i = 0; i < 100; i++)
             {
                 // AGILENT 86142 TEST
                 
                 a86142.startWaveLength = 900;
                 a86142.stopWaveLength =  1700;
-                a86142.traceLength = 1001;
-               
+                
+                //Debug.WriteLine("a86142 trace length " + Convert.ToString(a86142.traceLength));
                 trace = a86142.getTrace();
                 ary = trace.Split(',');
                 y = new List<double>();
@@ -63,12 +70,14 @@ namespace PapayaDemo
                     y.Add(Convert.ToDouble(ary[j]));    
                 }
                 stopwav = Convert.ToDouble(a86142.stopWaveLength);
-
+                /*
                 Debug.WriteLine("a86142 start wavelength : " + Convert.ToString(a86142.startWaveLength));
                 Debug.WriteLine("a86142 start wavelength : " + Convert.ToString(a86142.stopWaveLength));
                 Debug.WriteLine("a86142 trace length : " + Convert.ToString(a86142.traceLength));
                 //Debug.WriteLine("Printing getTrace: ");
-                Debug.WriteLine("Lenth of trace : " + Convert.ToString(ary.Length));
+                */
+                //Debug.WriteLine("Lenth of trace : " + Convert.ToString(ary.Length));
+                
                 /*
                 foreach(String x in ary)
                 {
@@ -82,38 +91,47 @@ namespace PapayaDemo
 
                 // AGILENT 33401 TEST
                 
-                /*
+                
                 dcVoltage = a33401.dcVoltage();
-                dcCurrent = a33401.dcCurrent();
-                */
+                //dcCurrent = a33401.dcCurrent();
+                /*
                 acVoltage = a33401.acVoltage();
                 acCurrent = a33401.acCurrent();
-                twoWireRead = a33401.twoWireRes();
-                System.Threading.Thread.Sleep(2000);
-                fourWireRead = a33401.fourWireRes();
-                measureDiode = a33401.measureDiode();
+                */
+                //twoWireRead = a33401.twoWireRes();
+                //System.Threading.Thread.Sleep(1000);
+                //fourWireRead = a33401.fourWireRes();
+                //measureDiode = a33401.measureDiode();
                 db = a33401.dbValue();
 
+                /*
                 Debug.WriteLine("Agilent 33401 AC Volt is " + acVoltage.ToString());
                 Debug.WriteLine("Agilent 33401 AC Curr is " + acCurrent.ToString());
-                /*
+                
                 Debug.WriteLine("Agilent 33401 DC Volt is " + dcVoltage.ToString());
                 Debug.WriteLine("Agilent 33401 DC Curr is " + dcCurrent.ToString());
-                */
+                
                 Debug.WriteLine("Agilent 33401 2 wire resistance is " + twoWireRead.ToString());
                 Debug.WriteLine("Agilent 33401 4 wire resistance is " + fourWireRead.ToString());
                 Debug.WriteLine("Agilent 33401 Diode reading is " + measureDiode.ToString());
                 Debug.WriteLine("Agilent 33401 dB reading is " + db.ToString());
-
+                */
                 // KEITHLEY 2510 TEST
-                k2510.temp = Convert.ToDouble(i+1);
+                if (i < 25)
+                {
+                    k2510.temp = Convert.ToDouble(i + 1);
+                } else
+                {
+                    k2510.temp = 25.0;
+                }
+                
                 tempOut = k2510.temp;
                 
-                k2510.output = Convert.ToDouble((i+1) % 2);
+                //k2510.output = Convert.ToDouble((i+1) % 2);
                 queryResult = k2510.output;
 
-                Debug.WriteLine("Keithley 2510 Test, Temp is " + Convert.ToString(tempOut));
-                Debug.WriteLine("Keithley 2510 Test, Output is " + Convert.ToString(queryResult));
+                //Debug.WriteLine("Keithley 2510 Test, Temp is " + Convert.ToString(tempOut));
+                //Debug.WriteLine("Keithley 2510 Test, Output is " + Convert.ToString(queryResult));
 
                 // AGILENT E3631 TEST
                 /*
@@ -140,82 +158,102 @@ namespace PapayaDemo
                 Debug.WriteLine("N25 Voltage is " + N25Output);
                 */
                 // KEITHLEY 2400 TEST
-                // Need to read thru expected vaules still
-                /*
-                if (i % 2 == 0)
-                {
-                    k2400.SourceMode = sourceVoltage;
-                } 
-                else
-                {
-                    k2400.SourceMode = sourceCurrent;
-                }
-                */
-                //set to on
-                k2400.OutputIsOn = Convert.ToBoolean(0);
-                Debug.WriteLine("Source Before : " + Convert.ToString(k2400.SourceMode));
+                
+                k2400.OutputIsOn = false;
+                //Debug.WriteLine("Source Before : " + Convert.ToString(k2400.SourceMode));
                 k2400.SourceMode = sourceCurrent;
-                Debug.WriteLine("Source Current : " + Convert.ToString(k2400.SourceMode));
+                //Debug.WriteLine("Source Current : " + Convert.ToString(k2400.SourceMode));
                 k2400.SourceMode = sourceVoltage;
-                Debug.WriteLine("Source Voltage : " + Convert.ToString(k2400.SourceMode));
+                //Debug.WriteLine("Source Voltage : " + Convert.ToString(k2400.SourceMode));
 
                 // Must Turn Sense Mode Off between function calls to test individual setting
                 k2400.SenseMode = senseAllOff;
-                Debug.WriteLine("Sense All Off : " + Convert.ToString(k2400.SenseMode));
+                //Debug.WriteLine("Sense All Off : " + Convert.ToString(k2400.SenseMode));
                 k2400.SenseMode = senseAllOn;
-                Debug.WriteLine("Sense All On : " + Convert.ToString(k2400.SenseMode));
+                //Debug.WriteLine("Sense All On : " + Convert.ToString(k2400.SenseMode));
                 k2400.SenseMode = senseAllOff;
                 k2400.SenseMode = senseVoltage;
-                Debug.WriteLine("Sense Voltage : " + Convert.ToString(k2400.SenseMode));
+                //Debug.WriteLine("Sense Voltage : " + Convert.ToString(k2400.SenseMode));
                 k2400.SenseMode = senseAllOff;
                 k2400.SenseMode = senseCurrent;
-                Debug.WriteLine("Sense Current : " + Convert.ToString(k2400.SenseMode));
+                //Debug.WriteLine("Sense Current : " + Convert.ToString(k2400.SenseMode));
                 k2400.SenseMode = senseAllOff;
                 k2400.SenseMode = senseResistance;
-                Debug.WriteLine("Sense Resistance : " + Convert.ToString(k2400.SenseMode));
+                //Debug.WriteLine("Sense Resistance : " + Convert.ToString(k2400.SenseMode));
                 k2400.SenseMode = senseAllOff;
                 k2400.SenseMode = senseCurrent;
 
                 k2400.Terminal = selectFront;
-                Debug.WriteLine("Terminal Front : " + Convert.ToString(k2400.Terminal));
+                //Debug.WriteLine("Terminal Front : " + Convert.ToString(k2400.Terminal));
                 k2400.Terminal = selectRear;
-                Debug.WriteLine("Terminal Rear : " + Convert.ToString(k2400.Terminal));
-                k2400.OutputIsOn = true;
-                System.Threading.Thread.Sleep(2000);
+                //Debug.WriteLine("Terminal Rear : " + Convert.ToString(k2400.Terminal));
+
+                System.Threading.Thread.Sleep(1000);
                 
-                Debug.WriteLine("Keithley2400 current compliance = " + Convert.ToString(k2400.CurrentCompliance));
-                Debug.WriteLine("Keithley2400 voltage compliance = " + Convert.ToString(k2400.VoltageCompliance));
-                if (k2400.OutputIsOn)
-                {
-                    // sense volt source curr 
-                    
-                    k2400.VoltageSetpoint = (i + 1)*0.5; // Voltage limit from 20 to 210V
-                    k2400.CurrentCompliance = 1.0; // Voltage lmit 10nA to 3.15A
+                //Debug.WriteLine("Keithley2400 current compliance = " + Convert.ToString(k2400.CurrentCompliance));
+                //Debug.WriteLine("Keithley2400 voltage compliance = " + Convert.ToString(k2400.VoltageCompliance));
 
-                    System.Threading.Thread.Sleep(2000);
+                // sense volt source curr 
 
-                    k2400.SenseMode = senseAllOff;
-                    k2400.SenseMode = senseCurrent;
-                    k2400.CurrentCompliance = (i + 1) * 10; // Current limit 1nA to 1.05A
-                    
-                }
                 k2400.SenseMode = senseAllOff;
+                k2400.SenseMode = senseCurrent;
+                k2400.SourceMode = sourceVoltage;
+                k2400.VoltageSetpoint = 2.5; // Voltage limit from 20 to 210V
+                k2400.CurrentCompliance = 1000; // Voltage lmit 10nA to 3.15A
+                k2400.OutputIsOn = true;
+
+                k2400.OutputIsOn = false;
+                k2400.SenseMode = senseAllOff;
+                k2400.SenseMode = senseVoltage;
+                k2400.SourceMode = sourceCurrent;
+                k2400.VoltageCompliance = 2500; // Current limit 1nA to 1.05A
+                k2400.OutputIsOn = true;
+                
+                k2400.SenseMode = senseAllOff;
+                k2400.OutputIsOn = false;
                 k2400.FourWireIsOn = Convert.ToBoolean((i+1) % 2 == 0);
+                /*
                 Debug.WriteLine("Keithley2400 voltage setpoint = " + Convert.ToString(k2400.VoltageSetpoint));
                 Debug.WriteLine("Keithley2400 current compliance = " + Convert.ToString(k2400.CurrentCompliance));
                 Debug.WriteLine("Keithley2400 voltage compliance = " + Convert.ToString(k2400.VoltageCompliance));
                 Debug.WriteLine("Keithley2400 output on/off = " + Convert.ToString(k2400.OutputIsOn));
                 Debug.WriteLine("Keithley2400 4 wire on/off = " + Convert.ToString(k2400.FourWireIsOn));
-
-                /*
-                 * Need to finish Terminal, SenseMode, SourceType
-                if (i % 2 == 0) { sourceType = "VOLT"; }
-                else { sourceType = "CURR";  }
-                k2400.SourceMode = sourceType;
                 */
-                
+                if ((i % 10) == 0)
+                {
+                    Debug.WriteLine("Checking for errors at iteration " + Convert.ToString(i));
+
+                    k2400errMsg = k2400.checkForError();
+                    while (!String.Equals(k2400errMsg, "0,\"No error\"\n"))
+                    {
+                        Debug.WriteLine("k2400 Error: " + k2400errMsg);
+                        k2400errMsg = k2400.checkForError();
+                    }
+
+                    k2510errMsg = k2510.checkForError();
+                    while (!String.Equals(k2510errMsg, "0,\"No error\"\n"))
+                    {
+                        Debug.WriteLine("k2510 Error: " + k2510errMsg);
+                        k2510errMsg = k2400.checkForError();
+                    }
+
+                    a86142errMsg = a86142.checkForError();
+                    while (!String.Equals(a86142errMsg, "+0,\"No error\"\n"))
+                    {
+                        Debug.WriteLine("a86142 Error: " + a86142errMsg);
+                        a86142errMsg = a86142.checkForError();
+                    }
+
+                    a33401errMsg = a33401.checkForError();
+                    while (!String.Equals(a33401errMsg, "+0,\"No error\"\n"))
+                    {
+                        Debug.WriteLine("a33401 Error: " + a33401errMsg);
+                        a33401errMsg = a33401.checkForError();
+                    }
+                    Debug.WriteLine("Error checking complete.");
+                }
             }
+            Debug.WriteLine("Complete");
         }
-        
     }
 }
